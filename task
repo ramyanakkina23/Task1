@@ -1,0 +1,129 @@
+'''
+ATM code
+'''
+
+def ATM():
+    current_balance = 10000
+    print("Current balance is:", current_balance)
+    
+    while True:
+        print("\nChoose the operation:")
+        print("1. Withdraw")
+        print("2. Deposit")
+        print("3. Check Balance")
+        print("4. Exit\n")
+        
+        choice = int(input("Enter the choice: "))
+        if choice == 1:
+            try:
+                withdraw_amount = int(input("Enter amount to withdraw: "))
+                
+                if withdraw_amount <= 0:
+                    print("Invalid. Please enter a positive withdrawal amount.")
+                    continue
+
+                if current_balance < withdraw_amount:
+                    print("Insufficient balance")
+                    continue
+                notes_2000 = withdraw_amount // 2000
+                remaining_amount = withdraw_amount % 2000
+                
+                notes_500 = remaining_amount // 500
+                remaining_amount %= 500
+                
+                notes_200 = remaining_amount // 200
+                remaining_amount %= 200
+                
+                if remaining_amount > 0:
+                    print("Invalid. The amount cannot be dispensed with available notes.")
+                    continue
+                if notes_2000 > 0:
+                    print("No.of 2000 notes:", notes_2000)
+                if notes_500 > 0:
+                    print("No.of 500 notes:", notes_500)
+                if notes_200 > 0:
+                    print("No.of 200 notes:", notes_200)
+                current_balance -= (notes_2000 * 2000 + notes_500 * 500 + notes_200 * 200)
+                print("Take out your money...")
+
+            except ValueError:
+                print("Invalid. Please enter a numeric value.")
+                continue
+            
+        elif choice == 2:
+            deposit = int(input("Enter money to deposit: "))
+            if deposit > 0:
+                current_balance += deposit
+                print("Balance is:", current_balance)
+            else:
+                print("Deposit amount must be positive.")
+                
+        elif choice == 3:
+            print("Balance is:", current_balance)            
+        elif choice == 4:
+            print("Exiting...")
+            break           
+        else:
+            print("Invalid. Please choose a valid option.")
+ATM()
+
+
+'''
+1. Write a Python program to create a class representing a shopping cart. 
+Include methods for adding and removing items, and calculating the total price.
+'''
+
+class shopping_cart:
+    def __init__(self):
+        self.cart=[]
+        print("Items in the cart:")
+        
+    # adding item 
+    def add_item(self,item_name,qty,price=30):
+        if item_name in self.cart:
+            qty+=1 
+            print("Quantity of item is",item_name,":",qty)
+            print("Total price of each item is:",qty*price)
+        else:
+            self.cart.append(item_name)
+            print("Quantity of item is ",item_name,":",qty)
+            total_price=qty*price
+            print("Total price of each item is:",total_price)
+    
+    #removing an item
+    def remove_item(self,item_name):
+        if not self.cart:
+            print("The cart is empty...")
+        elif item_name in self.cart:
+            self.cart.remove(item_name)
+            print(f"{item_name} have been removed...")
+        else:
+            print("Item has already removed..")
+s1=shopping_cart()
+s1.add_item("Apple",2)
+s1.add_item("cherry",3)
+s1.add_item("grapes",3)
+s1.add_item("oranges",3)
+s1.remove_item("Apple")
+
+
+
+'''
+json data file
+'''
+
+import json
+data = {}  
+print("Enter key-value pair:")
+print("type 'exit' as key to stop")
+while True:
+    key = input("Enter key: ")
+    if key == "exit":
+        break
+    value = input("Enter value: ")
+    data[key] = value  
+with open("data.json", "w") as file:
+    json.dump(data, file)
+
+
+
